@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Pointfence",
+			"Path": "D:\\Documents\\Unreal Projects\\Pointfence\\Source\\Pointfence.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "PointfenceEditor",
+			"Path": "D:\\Documents\\Unreal Projects\\Pointfence\\Source\\PointfenceEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

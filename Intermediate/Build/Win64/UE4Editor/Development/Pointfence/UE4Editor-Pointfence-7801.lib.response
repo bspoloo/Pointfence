@@ -1,0 +1,19 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-Pointfence-7801.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\PointfenceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\AlexCharacter.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\Pointfence.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\PointfenceCharacter.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\PointfenceGameMode.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\AlexCharacter.gen.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\Pointfence.init.gen.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\PointfenceCharacter.gen.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\PointfenceGameMode.gen.cpp.obj"
+"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\Default.rc2.res"
+/OUT:"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\UE4Editor-Pointfence-7801.lib"
