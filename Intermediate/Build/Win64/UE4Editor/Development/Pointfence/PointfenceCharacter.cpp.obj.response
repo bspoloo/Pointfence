@@ -237,6 +237,13 @@
 /I Runtime\AugmentedReality\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\MRMesh
 /I Runtime\MRMesh\Public
+/I Runtime\Online\WebSockets\Public
+/I ..\Plugins\Enterprise\LidarPointCloud\Intermediate\Build\Win64\UE4Editor\Inc\LidarPointCloudRuntime
+/I ..\Plugins\Enterprise\LidarPointCloud\Source
+/I ..\Plugins\Enterprise\LidarPointCloud\Source\LidarPointCloudRuntime\Public
+/I ..\Plugins\Runtime\ProceduralMeshComponent\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralMeshComponent
+/I ..\Plugins\Runtime\ProceduralMeshComponent\Source
+/I ..\Plugins\Runtime\ProceduralMeshComponent\Source\ProceduralMeshComponent\Public
 /I ThirdParty\PhysX3\PxShared\include
 /I ThirdParty\PhysX3\PxShared\include\cudamanager
 /I ThirdParty\PhysX3\PxShared\include\filebuf

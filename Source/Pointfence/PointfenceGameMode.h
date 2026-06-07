@@ -13,6 +13,7 @@ class APointfenceGameMode : public AGameModeBase
 
 public:
 	APointfenceGameMode();
+	virtual void BeginPlay() override;
 };
 
 
