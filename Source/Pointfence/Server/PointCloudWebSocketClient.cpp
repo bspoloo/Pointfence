@@ -2,6 +2,8 @@
 
 
 #include "./PointCloudWebSocketClient.h"
+#include "Engine/Engine.h"
+#include "Async/Async.h"
 
 // Sets default values
 APointCloudWebSocketClient::APointCloudWebSocketClient()
@@ -9,15 +11,8 @@ APointCloudWebSocketClient::APointCloudWebSocketClient()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	PointCloudComponent = CreateDefaultSubobject<ULidarPointCloudComponent>(TEXT("PointCloudComponent"));
-	RootComponent = PointCloudComponent;
-	CurrentPointCloud = nullptr;
-
-	PointCloudComponent->SetGenerateOverlapEvents(true);
-	PointCloudComponent->SetSimulatePhysics(true);
-	PointCloudComponent->SetMobility(EComponentMobility::Movable); 
-	PointCloudComponent->SetCollisionProfileName(FName("BlockAll"));
-	PointCloudComponent->SetMassOverrideInKg(NAME_None, 100.0f);
+	bReceivingGLB = false;
+	ExpectedFileSize = 0;
 }
 
 void APointCloudWebSocketClient::BeginPlay()
@@ -43,7 +38,7 @@ void APointCloudWebSocketClient::OnWebSocketBinaryData(const void* Data, SIZE_T 
 	{
 		AsyncTask(ENamedThreads::GameThread, [this, BinaryData = InComingBinaryBuffer]()
 			{
-				CreatePointCloudFromBinaryData(BinaryData);
+				//CreatePointCloudFromBinaryData(BinaryData);
 			});
 		InComingBinaryBuffer.Empty();
 	}
@@ -52,16 +47,48 @@ void APointCloudWebSocketClient::OnWebSocketBinaryData(const void* Data, SIZE_T 
 void APointCloudWebSocketClient::OnWebSocketMessage(const FString& Message)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Mensaje recibido: %s"), *Message);
+	TSharedPtr<FJsonObject> JsonObject;
+    TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(Message);
+
+	if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid()) {
+		FString Type = JsonObject->GetStringField("type");
+		if (Type == "glb_start") {
+			ProcessGLBMessage(JsonObject);
+		}
+		else if (Type == "glb_chunk") {
+			FString EncodedData = JsonObject->GetStringField("data");
+			int32 ChunkIndex = JsonObject->GetIntegerField("chunk_index");
+			int32 TotalSent = JsonObject->GetIntegerField("total_sent");
+			int32 TotalSize = JsonObject->GetIntegerField("total_size");
+
+			ProcessGLBChunk(EncodedData, ChunkIndex, TotalSent, TotalSize);
+		}
+		else if (Type == "error")
+		{
+			FString ErrorMessage = JsonObject->GetStringField("message");
+			UE_LOG(LogTemp, Error, TEXT("Error del servidor: %s"), *ErrorMessage);
+		}
+		else if (Type == "ack")
+		{
+			UE_LOG(LogTemp, Log, TEXT("ACK recibido del servidor"));
+		}
+		else if (Type == "pong")
+		{
+			UE_LOG(LogTemp, Verbose, TEXT("Pong recibido"));
+		}
+		else {
+			if (Message == "ACK") {
+				UE_LOG(LogTemp, Log, TEXT("ACK recibido del servidor"));
+			}
+		}
+	}
 }
 
-void APointCloudWebSocketClient::CreatePoinCloudFromBinary(const TArray<uint8>& BinaryData)
-{
-}
 
 void APointCloudWebSocketClient::OnWebSocketConnected()
 {
 	UE_LOG(LogTemp, Warning, TEXT("WebSocket conectado al servidor"));
-	WebSocket->Send("Ready to send data points");
+	WebSocket->Send("READY");
 }
 
 void APointCloudWebSocketClient::OnWebSocketConectionError(const FString& Error)
@@ -103,73 +130,117 @@ void APointCloudWebSocketClient::DisconnectFromServer()
 	}
 }
 
-void APointCloudWebSocketClient::CreatePointCloudFromBinaryData(const TArray<uint8>& BinaryData)
+
+void APointCloudWebSocketClient::ProcessGLBMessage(const TSharedPtr<FJsonObject>& JsonObject)
 {
-	if (BinaryData.Num() < 4) {
-		UE_LOG(LogTemp, Error, TEXT("Datos binarios muy pequeños: %d bytes"), BinaryData.Num());
-		return;
-	}
+	CurrentFilename = JsonObject->GetStringField("filename");
+	ExpectedFileSize = JsonObject->GetIntegerField("file_size");
+	int32 ChunkSize = JsonObject->GetIntegerField("chunk_size");
 
-	uint32 NumPoints = *reinterpret_cast<const uint32*>(BinaryData.GetData());
-	int32 BytesPerPoint = sizeof(float) * 3 + sizeof(uint8) * 3;
-	int32 ExpectedSize = 4 + NumPoints * BytesPerPoint;
+	bReceivingGLB = true;
+	GLBFileBuffer.Empty();
+	GLBFileBuffer.Reserve(ExpectedFileSize);
 
-	if (BinaryData.Num() != ExpectedSize) {
-		UE_LOG(LogTemp, Error, TEXT("Tamaño de datos incorrecto. Esperado: %d, Recibido: %d"),
-			ExpectedSize, BinaryData.Num());
-		return;
-	}
-	UE_LOG(LogTemp, Warning, TEXT("Procesando nube de puntos con %u puntos"), NumPoints);
+	UE_LOG(LogTemp, Log, TEXT("Recibiendo archivo GLB: %s (%d bytes, chunk: %d)"),
+		*CurrentFilename, ExpectedFileSize, ChunkSize);
 
-	FString AssetName = FString::Printf(TEXT("PointCloud_%lld"), FDateTime::Now().GetTicks());
+}
 
-	CurrentPointCloud = NewObject<ULidarPointCloud>(GetTransientPackage(), FName(*AssetName));
-
-	if (!CurrentPointCloud) {
-		UE_LOG(LogTemp, Error, TEXT("No se pudo crear el asset de nube de puntos"));
-		return;
-	}
-
-	TArray<FLidarPointCloudPoint> Points;
-
-	Points.Reserve(NumPoints);
-	const uint8* DataPtr = BinaryData.GetData() + 4;
-
-	for (uint32 i = 0; i < NumPoints; i++) {
-		FLidarPointCloudPoint Point;
-		
-		Point.Location.X = *reinterpret_cast<const float*>(DataPtr); DataPtr += sizeof(float);
-		Point.Location.Y = *reinterpret_cast<const float*>(DataPtr); DataPtr += sizeof(float);
-		Point.Location.Z = *reinterpret_cast<const float*>(DataPtr); DataPtr += sizeof(float);
-
-		Point.Color.R = *DataPtr++;
-		Point.Color.G = *DataPtr++;
-		Point.Color.B = *DataPtr++;
-
-		Points.Add(Point);
-	}
-
-	if (Points.Num() == 0)
+void APointCloudWebSocketClient::ProcessGLBChunk(const FString& EncodedData, int32 ChunkIndex, int32 TotalSent, int32 TotalSize)
+{
+	if (!bReceivingGLB)
 	{
-		UE_LOG(LogTemp,Error,TEXT("No se recibieron puntos"));
+		UE_LOG(LogTemp, Warning, TEXT("Recibido chunk sin inicio de archivo"));
 		return;
 	}
 
-	FBox Bounds(EForceInit::ForceInit);
-	for (const FLidarPointCloudPoint& Point : Points)
+	TArray<uint8> DecodedData;
+	if (!FBase64::Decode(EncodedData, DecodedData))
 	{
-		Bounds += Point.Location;
+		UE_LOG(LogTemp, Error, TEXT("Error decodificando chunk %d"), ChunkIndex);
+		return;
+	}
+	GLBFileBuffer.Append(DecodedData);
+
+	float Progress = (TotalSent / (float)TotalSize) * 100.0f;
+	OnReceiveProgress(TotalSent, TotalSize);
+
+	if (ChunkIndex % 10 == 0)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Progreso GLB: %.1f%% (%d/%d bytes)"),
+			Progress, TotalSent, TotalSize);
+	}
+}
+
+void APointCloudWebSocketClient::FinalizeGLBFile()
+{
+	if (!bReceivingGLB || GLBFileBuffer.Num() == 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No hay datos GLB para finalizar"));
+		return;
 	}
 
-	CurrentPointCloud->Initialize(Bounds);
-	FVector VectorSpawned = GetActorLocation() + FVector(0.0f, 0.0f, 100);
-	CurrentPointCloud->InsertPoints(Points, ELidarPointCloudDuplicateHandling::Ignore, true, FVector::ZeroVector);
-	PointCloudComponent->SetPointCloud(CurrentPointCloud);
+	UE_LOG(LogTemp, Log, TEXT("Archivo GLB recibido: %s (%d bytes)"),
+		*CurrentFilename, GLBFileBuffer.Num());
 
-	PointCloudComponent->SetRelativeRotation(FRotator(0, 0, -90));
-	PointCloudComponent->SetRelativeLocation(VectorSpawned);
-	PointCloudComponent->SetWorldScale3D(FVector(0.20f, 0.2f, 0.2f));
+	FString TempPath = FPaths::ProjectSavedDir() / TEXT("GLB") / CurrentFilename;
 
-	CurrentPointCloud->MaxCollisionError = 100.0f;
-	CurrentPointCloud->BuildCollision();
+	if (SaveGLBToFile(TempPath, GLBFileBuffer))
+	{
+		UE_LOG(LogTemp, Log, TEXT("Archivo GLB guardado: %s"), *TempPath);
+
+		OnGLBFileReceived(TempPath);
+
+		// Aquí puedes cargar el GLB en Unreal
+		// Nota: Necesitas un plugin como "Runtime Mesh Loader" o "GLTF Loader"
+		// Para cargar el GLB en el motor
+
+		// Ejemplo de carga con Runtime Mesh Loader (si lo tienes)
+		// LoadGLBIntoScene(TempPath);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Error guardando archivo GLB: %s"), *TempPath);
+	}
+
+	GLBFileBuffer.Empty();
+	bReceivingGLB = false;
+	CurrentFilename = TEXT("");
+	ExpectedFileSize = 0;
+}
+bool APointCloudWebSocketClient::SaveGLBToFile(const FString& FilePath, const TArray<uint8>& Data)
+{
+	FString Directory = FPaths::GetPath(FilePath);
+	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
+	if (!PlatformFile.DirectoryExists(*Directory))
+	{
+		PlatformFile.CreateDirectoryTree(*Directory);
+	}
+
+	return FFileHelper::SaveArrayToFile(Data, *FilePath);
+}
+
+void APointCloudWebSocketClient::OnGLBFileReceived(const FString& FilePath)
+{
+	UE_LOG(LogTemp, Log, TEXT("GLB recibido: %s - Cargar en escena"), *FilePath)
+}
+
+void APointCloudWebSocketClient::RequestGLBFile(const FString& Filename)
+{
+	if (!WebSocket.IsValid() || !WebSocket->IsConnected())
+	{
+		UE_LOG(LogTemp, Error, TEXT("WebSocket no conectado"));
+		return;
+	}
+
+	TSharedPtr<FJsonObject> RequestJson = MakeShareable(new FJsonObject);
+	RequestJson->SetStringField("type", "request_glb");
+	RequestJson->SetStringField("filename", Filename);
+
+	FString RequestString;
+	TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&RequestString);
+	FJsonSerializer::Serialize(RequestJson.ToSharedRef(), Writer);
+
+	WebSocket->Send(RequestString);
+	UE_LOG(LogTemp, Log, TEXT("Solicitando archivo GLB: %s"), *Filename);
 }

@@ -231,8 +231,8 @@
 /I Editor\Kismet\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\ClothingSystemRuntimeInterface
 /I Runtime\ClothingSystemRuntimeInterface\Public
-/I "D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Inc\Pointfence"
-/I "D:\Documents\Unreal Projects\Pointfence\Source"
+/I D:\Sciences\pointfence\pointfence\Intermediate\Build\Win64\UE4Editor\Inc\Pointfence
+/I D:\Sciences\pointfence\pointfence\Source
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\AugmentedReality
 /I Runtime\AugmentedReality\Public
 /I ..\Intermediate\Build\Win64\UE4Editor\Inc\MRMesh
@@ -267,18 +267,18 @@
 /I ThirdParty\PhysX3\APEX_1.4\shared\general\RenderDebug\public
 /I ThirdParty\PhysX3\APEX_1.4\shared\general\PairFilter\include
 /I ThirdParty\PhysX3\APEX_1.4\shared\internal\include
-/I D:\Programs\Microsoft\VisualStudio\Community\VC\Tools\MSVC\14.50.35717\INCLUDE
-/I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"
-/I "D:\Windows Kits\10\include\10.0.26100.0\ucrt"
-/I "D:\Windows Kits\10\include\10.0.26100.0\shared"
-/I "D:\Windows Kits\10\include\10.0.26100.0\um"
-/I "D:\Windows Kits\10\include\10.0.26100.0\winrt"
-/FI"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\PointfenceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Yu"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\PointfenceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Fp"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\PointfenceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
-"D:\Documents\Unreal Projects\Pointfence\Source\Pointfence\PointfenceGameMode.cpp"
-/FI"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\Definitions.Pointfence.h"
-/Fo"D:\Documents\Unreal Projects\Pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\PointfenceGameMode.cpp.obj"
+/I "D:\Programs\Microsoft Visual Studio\2026\Community\VC\Tools\MSVC\14.51.36231\INCLUDE"
+/I "C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\winrt"
+/FI"D:\Sciences\pointfence\pointfence\Intermediate\Build\Win64\PointfenceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Yu"D:\Sciences\pointfence\pointfence\Intermediate\Build\Win64\PointfenceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Fp"D:\Sciences\pointfence\pointfence\Intermediate\Build\Win64\PointfenceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
+"D:\Sciences\pointfence\pointfence\Source\Pointfence\PointfenceGameMode.cpp"
+/FI"D:\Sciences\pointfence\pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\Definitions.Pointfence.h"
+/Fo"D:\Sciences\pointfence\pointfence\Intermediate\Build\Win64\UE4Editor\Development\Pointfence\PointfenceGameMode.cpp.obj"
 /TP
 /GR-
 /W4

@@ -13,10 +13,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define POINTFENCE_PointfenceCharacter_generated_h
 
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_SPARSE_DATA
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS_NO_PURE_DECLS
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS_NO_PURE_DECLS \
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_SPARSE_DATA
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS_NO_PURE_DECLS
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAPointfenceCharacter(); \
 	friend struct Z_Construct_UClass_APointfenceCharacter_Statics; \
@@ -25,7 +25,7 @@ public: \
 	DECLARE_SERIALIZER(APointfenceCharacter)
 
 
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS \
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS \
 private: \
 	static void StaticRegisterNativesAPointfenceCharacter(); \
 	friend struct Z_Construct_UClass_APointfenceCharacter_Statics; \
@@ -34,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(APointfenceCharacter)
 
 
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_STANDARD_CONSTRUCTORS \
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API APointfenceCharacter(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(APointfenceCharacter) \
@@ -47,7 +47,7 @@ private: \
 public:
 
 
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_ENHANCED_CONSTRUCTORS \
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API APointfenceCharacter(APointfenceCharacter&&); \
@@ -58,32 +58,32 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(APointfenceCharacter)
 
 
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_PRIVATE_PROPERTY_OFFSET \
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__CameraBoom() { return STRUCT_OFFSET(APointfenceCharacter, CameraBoom); } \
 	FORCEINLINE static uint32 __PPO__FollowCamera() { return STRUCT_OFFSET(APointfenceCharacter, FollowCamera); }
 
 
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_9_PROLOG
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_GENERATED_BODY_LEGACY \
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_9_PROLOG
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_SPARSE_DATA \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_STANDARD_CONSTRUCTORS \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_PRIVATE_PROPERTY_OFFSET \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_SPARSE_DATA \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Pointfence_Source_Pointfence_PointfenceCharacter_h_12_GENERATED_BODY \
+#define pointfence_Source_Pointfence_PointfenceCharacter_h_12_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_SPARSE_DATA \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_PointfenceCharacter_h_12_ENHANCED_CONSTRUCTORS \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_PRIVATE_PROPERTY_OFFSET \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_SPARSE_DATA \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_INCLASS_NO_PURE_DECLS \
+	pointfence_Source_Pointfence_PointfenceCharacter_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -91,7 +91,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> POINTFENCE_API UClass* StaticClass<class APointfenceCharacter>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID Pointfence_Source_Pointfence_PointfenceCharacter_h
+#define CURRENT_FILE_ID pointfence_Source_Pointfence_PointfenceCharacter_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

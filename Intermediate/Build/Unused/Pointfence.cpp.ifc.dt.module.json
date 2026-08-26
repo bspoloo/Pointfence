@@ -1,0 +1,15 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "D:\\Sciences\\pointfence\\pointfence\\Intermediate\\ProjectFiles\\..\\Build\\Unused\\Pointfence.obj",
+            "outputs": [
+                "D:\\Sciences\\pointfence\\pointfence\\Intermediate\\ProjectFiles\\..\\Build\\Unused\\Pointfence.cpp.ifc.dt.module.json",
+                "D:\\Sciences\\pointfence\\pointfence\\Intermediate\\ProjectFiles\\..\\Build\\Unused\\Pointfence.cpp.ifc.dt.d.json",
+                "D:\\Sciences\\pointfence\\pointfence\\Intermediate\\ProjectFiles\\..\\Build\\Unused\\Pointfence.pch"
+            ],
+            "requires": []
+        }
+    ]
+}

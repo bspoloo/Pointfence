@@ -21,7 +21,7 @@ void EmptyLinkFunctionForGeneratedCodePointfence_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x9F4BF9F4,
+				0x24430260,
 				0x30405893,
 				METADATA_PARAMS(nullptr, 0)
 			};
