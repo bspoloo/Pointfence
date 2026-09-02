@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\Pointfence.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{5B993561-E513-4EA7-AEC3-EB603A65CC93}</UniqueIdentifier>
+      <UniqueIdentifier>{797DE505-CD07-4965-8791-C6222C16D18B}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Pointfence.Target.cs">
       <Filter>Source</Filter>
@@ -15,7 +15,7 @@
     <None Include="..\..\.gitignore" />
     <None Include="..\..\README.md" />
     <Filter Include="Config">
-      <UniqueIdentifier>{6F6B974E-F5B0-420D-96D5-83D975E71C8A}</UniqueIdentifier>
+      <UniqueIdentifier>{04C80AD1-B928-49FD-9373-183B923EB3E5}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -33,7 +33,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\Pointfence">
-      <UniqueIdentifier>{EF66A61E-6969-4D90-A200-21F985F64206}</UniqueIdentifier>
+      <UniqueIdentifier>{3150E5C3-7E19-4762-9FCC-D7C204FFF1F8}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Pointfence\Pointfence.Build.cs">
       <Filter>Source\Pointfence</Filter>
@@ -57,10 +57,10 @@
       <Filter>Source\Pointfence</Filter>
     </ClInclude>
     <Filter Include="Source\Pointfence\Characters">
-      <UniqueIdentifier>{B3910F90-559E-498D-BBA9-520A922D5BEC}</UniqueIdentifier>
+      <UniqueIdentifier>{CD221316-A34D-4154-8967-CD0BA2ECFC2A}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Pointfence\Characters\Alex">
-      <UniqueIdentifier>{36DC8493-66AA-47B1-8106-366B986D1861}</UniqueIdentifier>
+      <UniqueIdentifier>{7171843D-5ED0-49A2-9245-323C1FFD5343}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\Pointfence\Characters\Alex\AlexCharacter.cpp">
       <Filter>Source\Pointfence\Characters\Alex</Filter>
@@ -68,8 +68,17 @@
     <ClInclude Include="..\..\Source\Pointfence\Characters\Alex\AlexCharacter.h">
       <Filter>Source\Pointfence\Characters\Alex</Filter>
     </ClInclude>
+    <Filter Include="Source\Pointfence\ItemsGLB">
+      <UniqueIdentifier>{27EB63DA-BF57-413C-B20C-FD12364B648C}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Pointfence\ItemsGLB\GLBModelActor.cpp">
+      <Filter>Source\Pointfence\ItemsGLB</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Pointfence\ItemsGLB\GLBModelActor.h">
+      <Filter>Source\Pointfence\ItemsGLB</Filter>
+    </ClInclude>
     <Filter Include="Source\Pointfence\Server">
-      <UniqueIdentifier>{39D55A3D-4E45-4ABA-BDB4-168D198D6E11}</UniqueIdentifier>
+      <UniqueIdentifier>{A086F711-3ED3-4FB1-95A0-55BD7B6AC52E}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\Pointfence\Server\PointCloudWebSocketClient.cpp">
       <Filter>Source\Pointfence\Server</Filter>

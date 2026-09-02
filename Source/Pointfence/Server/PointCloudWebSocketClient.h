@@ -6,55 +6,64 @@
 #include "GameFramework/Actor.h"
 #include "WebSocketsModule.h"
 #include "IWebSocket.h"
-#include "LidarPointCloud.h"
-#include "LidarPointCloudComponent.h"
 #include "ProceduralMeshComponent.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
+#include "Dom/JsonObject.h"
+
 #include "PointCloudWebSocketClient.generated.h"
 
 UCLASS()
 class POINTFENCE_API APointCloudWebSocketClient : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
+
+public:
+
 	APointCloudWebSocketClient();
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
+	UProceduralMeshComponent* MeshComponent;
+
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "Websocket")
+	void ConnectToServer(
+		const FString& ServerUrl = TEXT("ws://10.67.34.161:8000/api/v1/scanning/ws/unreal")
+	);
+
+	UFUNCTION(BlueprintCallable, Category = "Websocket")
+	void DisconnectFromServer();
+
+	UFUNCTION(BlueprintCallable, Category = "Mesh")
+	void ClearMesh();
+
+private:
+
 	TSharedPtr<IWebSocket> WebSocket;
-
-	UPROPERTY()
-	ULidarPointCloud* CurrentPointCloud;
-
-	UPROPERTY(VisibleAnywhere)
-	ULidarPointCloudComponent* PointCloudComponent;
-
-	void OnWebSocketBinaryData(const void* Data,SIZE_T Size,SIZE_T BytesRemaining);
-	void OnWebSocketMessage(const FString& Message);
-	void CreatePoinCloudFromBinary(const TArray<uint8>& BinaryData);
+	TArray<uint8> InComingBinaryBuffer;
 
 	void OnWebSocketConnected();
 	void OnWebSocketConectionError(const FString& Error);
-	void OnWebSocketClosed(int32 StatusCode, const FString& Reason, bool bWasClean);
+	void OnWebSocketClosed(
+		int32 StatusCode,
+		const FString& Reason,
+		bool bWasClean
+	);
 
-	TArray<uint8> InComingBinaryBuffer;
+	void OnWebSocketMessage(const FString& Message);
 
-	void CreatePointCloudFromBinaryData(const TArray<uint8>& BinaryData);
+	void OnWebSocketBinaryData(
+		const void* Data,
+		SIZE_T Size,
+		SIZE_T BytesRemaining
+	);
 
-	UPROPERTY(VisibleAnywhere)
-	UProceduralMeshComponent* MeshComponent;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	UFUNCTION(BlueprintCallable, Category = "PointCloud")
-	void ConnectToServer(const FString& ServerUrl = TEXT("ws://192.168.100.73:8000/api/v1/points/ws/unreal"));
-
-	UFUNCTION(BlueprintCallable, Category = "PointCloud")
-	void DisconnectFromServer();
+	void ProcessMeshBinaryData(const TArray<uint8>& BinaryData);
+	void CreateMesh(const TArray<FVector>& Vertices,const TArray<int32>& Triangles,const TArray<FVector>& Normals);
 };

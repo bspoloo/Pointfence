@@ -13,20 +13,22 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define POINTFENCE_PointCloudWebSocketClient_generated_h
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_SPARSE_DATA
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_RPC_WRAPPERS \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_SPARSE_DATA
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execClearMesh); \
 	DECLARE_FUNCTION(execDisconnectFromServer); \
 	DECLARE_FUNCTION(execConnectToServer);
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execClearMesh); \
 	DECLARE_FUNCTION(execDisconnectFromServer); \
 	DECLARE_FUNCTION(execConnectToServer);
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_INCLASS_NO_PURE_DECLS \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAPointCloudWebSocketClient(); \
 	friend struct Z_Construct_UClass_APointCloudWebSocketClient_Statics; \
@@ -35,7 +37,7 @@ public: \
 	DECLARE_SERIALIZER(APointCloudWebSocketClient)
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_INCLASS \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_INCLASS \
 private: \
 	static void StaticRegisterNativesAPointCloudWebSocketClient(); \
 	friend struct Z_Construct_UClass_APointCloudWebSocketClient_Statics; \
@@ -44,7 +46,7 @@ public: \
 	DECLARE_SERIALIZER(APointCloudWebSocketClient)
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_STANDARD_CONSTRUCTORS \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API APointCloudWebSocketClient(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(APointCloudWebSocketClient) \
@@ -57,7 +59,7 @@ private: \
 public:
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_ENHANCED_CONSTRUCTORS \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API APointCloudWebSocketClient(APointCloudWebSocketClient&&); \
@@ -68,33 +70,31 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(APointCloudWebSocketClient)
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_PRIVATE_PROPERTY_OFFSET \
-	FORCEINLINE static uint32 __PPO__CurrentPointCloud() { return STRUCT_OFFSET(APointCloudWebSocketClient, CurrentPointCloud); } \
-	FORCEINLINE static uint32 __PPO__PointCloudComponent() { return STRUCT_OFFSET(APointCloudWebSocketClient, PointCloudComponent); } \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_PRIVATE_PROPERTY_OFFSET \
 	FORCEINLINE static uint32 __PPO__MeshComponent() { return STRUCT_OFFSET(APointCloudWebSocketClient, MeshComponent); }
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_14_PROLOG
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_GENERATED_BODY_LEGACY \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_16_PROLOG
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_SPARSE_DATA \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_RPC_WRAPPERS \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_INCLASS \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_STANDARD_CONSTRUCTORS \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_PRIVATE_PROPERTY_OFFSET \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_SPARSE_DATA \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_RPC_WRAPPERS \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_INCLASS \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_GENERATED_BODY \
+#define Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_SPARSE_DATA \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_INCLASS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_17_ENHANCED_CONSTRUCTORS \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_PRIVATE_PROPERTY_OFFSET \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_SPARSE_DATA \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_INCLASS_NO_PURE_DECLS \
+	Pointfence_Source_Pointfence_Server_PointCloudWebSocketClient_h_19_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
