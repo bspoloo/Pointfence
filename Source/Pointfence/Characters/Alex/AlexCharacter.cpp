@@ -2,6 +2,8 @@
 
 
 #include "./AlexCharacter.h"
+#include "../../ItemsGLB/PushButton.h"
+#include "EngineUtils.h"
 
 // Sets default values
 AAlexCharacter::AAlexCharacter()
@@ -10,6 +12,8 @@ AAlexCharacter::AAlexCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	GetCapsuleComponent()->InitCapsuleSize(50.0f, 100.0f);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this,&AAlexCharacter::OnObjectBeginOverlap);
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = true;
@@ -17,8 +21,10 @@ AAlexCharacter::AAlexCharacter()
 
 	GetCharacterMovement()->bOrientRotationToMovement = false;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
-	GetCharacterMovement()->JumpZVelocity = 600.0f;
-	GetCharacterMovement()->AirControl = 0.2f;
+	GetCharacterMovement()->JumpZVelocity = 300.0f;
+	GetCharacterMovement()->AirControl = 0.1f;
+	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+	//GetCharacterMovement()->MaxAcceleration = 200.0f;
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
@@ -38,7 +44,36 @@ AAlexCharacter::AAlexCharacter()
 void AAlexCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (HUDClass)
+	{
+		HUDWidget = CreateWidget<UUserWidget>(GetWorld(),HUDClass);
+		if (HUDWidget)
+		{
+			HUDWidget->AddToViewport();
+		}
+	}
+
+	for (TActorIterator<APushButton> It(GetWorld()); It; ++It)
+	{
+		TotalButtons++;
+
+		//UE_LOG(LogTemp, Warning, TEXT("Conectando a WebSocket: %f"), *TotalButtons);
+
+	}
+}
+
+void AAlexCharacter::TakeItem(AGLBModelActor* Item)
+{
+	ItemGLB = Item;
+}
+
+void AAlexCharacter::DropItem()
+{
+	if (ItemGLB) {
+		ItemGLB->EnableCollision();
+		ItemGLB = nullptr;
+	}
 }
 
 // Called every frame
@@ -46,6 +81,14 @@ void AAlexCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (ItemGLB)
+	{
+		FVector Forward = GetActorForwardVector();
+		FVector CurrentLocation = GetActorLocation() + Forward * 150.0f;
+
+		ItemGLB->SetActorLocation(CurrentLocation);
+	}
+	TakeDamage(DeltaTime * 0.3);
 }
 
 // Called to bind functionality to input
@@ -58,8 +101,13 @@ void AAlexCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
+	PlayerInputComponent->BindAction("DropItem", IE_Released, this, &AAlexCharacter::DropItem);
+
 	PlayerInputComponent->BindAxis("MoveForward", this, &AAlexCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AAlexCharacter::MoveRight);
+
+	PlayerInputComponent->BindAxis("RotateItemForward", this, &AAlexCharacter::RotateItemForward);
+	PlayerInputComponent->BindAxis("RotateItemRight", this, &AAlexCharacter::RotateItemRight);
 }
 
 void AAlexCharacter::MoveForward(float Value)
@@ -88,3 +136,34 @@ void AAlexCharacter::MoveRight(float Value)
 	}
 }
 
+void AAlexCharacter::RotateItemForward(float Value)
+{
+	if (ItemGLB && Value != 0.0f)
+	{
+		ItemGLB->RotateModel(Value * 1.0f, 0.0f, 0.0f);
+	}
+}
+
+void AAlexCharacter::RotateItemRight(float Value)
+{
+	if (ItemGLB && Value != 0.0f)
+	{
+		ItemGLB->RotateModel(0.0f, Value * 1.0f, 0.0f);
+	}
+}
+
+void AAlexCharacter::OnObjectBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	AGLBModelActor* Item = Cast<AGLBModelActor>(OtherActor);
+	if (Item)
+	{
+		ItemGLB = Item;
+		ItemGLB->DisableCollision();
+	}
+}
+
+void AAlexCharacter::TakeDamage(float Damage)
+{
+	Health -= Damage;
+	Health = FMath::Clamp(Health, 0.0f, MaxHealth);
+}

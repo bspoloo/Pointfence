@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "./GLBModelActor.h"
-
+#include "Kismet/GameplayStatics.h"
+#include "../Characters/Alex/AlexCharacter.h"
 #include "Components/SceneComponent.h"
 
 
@@ -16,6 +17,20 @@ AGLBModelActor::AGLBModelActor()
 	RootComponent = MeshComponent;
 
 	MeshComponent->bUseAsyncCooking = true;
+
+	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionBox"));
+	CollisionBox->SetupAttachment(RootComponent);
+
+	CollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CollisionBox->SetCollisionObjectType(ECC_PhysicsBody);
+	CollisionBox->SetCollisionResponseToAllChannels(ECR_Block);
+
+	CollisionBox->SetGenerateOverlapEvents(true);
+
+	CollisionBox->SetSimulatePhysics(false);
+
+	// El tamaño inicial, luego lo actualizamos
+	CollisionBox->SetBoxExtent(FVector(50.f));
 
 	MeshComponent->SetMobility(EComponentMobility::Movable);
 	MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -35,6 +50,7 @@ void AGLBModelActor::BeginPlay()
 void AGLBModelActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	AddActorLocalRotation(FRotator(0.0f, 20.0f * DeltaTime, 0.0f));
 }
 
 void AGLBModelActor::CreateProceduralMesh(const TArray<FVector>& Vertices, const TArray<int32>& Triangles, const TArray<FVector>& Normals)
@@ -70,7 +86,7 @@ void AGLBModelActor::CreateProceduralMesh(const TArray<FVector>& Vertices, const
 		return;
 	}
 
-	const float MeshScale = 100.0f;
+	const float MeshScale = 50.0f;
 
 	TArray<FVector> ScaledVertices;
 	ScaledVertices.SetNumUninitialized(Vertices.Num());
@@ -108,11 +124,8 @@ void AGLBModelActor::CreateProceduralMesh(const TArray<FVector>& Vertices, const
 	Tangents.SetNumZeroed(ScaledVertices.Num());
 
 	MeshComponent->SetSimulatePhysics(false);
-
 	MeshComponent->ClearAllMeshSections();
-
 	MeshComponent->ClearCollisionConvexMeshes();
-
 	MeshComponent->CreateMeshSection(
 		0,
 		ScaledVertices,
@@ -143,6 +156,14 @@ void AGLBModelActor::CreateProceduralMesh(const TArray<FVector>& Vertices, const
 	const FVector Center = (Min + Max) * 0.5f;
 
 	const FVector Extent = (Max - Min) * 0.5f;
+
+	CollisionBox->SetRelativeLocation(Center);
+	CollisionBox->SetBoxExtent(Extent);
+
+	CollisionBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	CollisionBox->SetCollisionResponseToAllChannels(ECR_Overlap);
+	CollisionBox->SetGenerateOverlapEvents(true);
+	CollisionBox->OnComponentBeginOverlap.AddDynamic(this,&AGLBModelActor::OnObjectBeginOverlap);
 
 	UE_LOG(LogTemp, Warning, TEXT("BoundingBox: Center=(%.2f, %.2f, %.2f) ""Extent=(%.2f, %.2f, %.2f)"),
 		Center.X,
@@ -195,6 +216,27 @@ void AGLBModelActor::ClearProceduralMesh()
 	UE_LOG(LogTemp, Log, TEXT("Mesh procedural eliminado."));
 }
 
+void AGLBModelActor::EnableCollision()
+{
+	if (!MeshComponent)
+		return;
+
+	MeshComponent->SetSimulatePhysics(true);
+	MeshComponent->SetEnableGravity(true);
+	MeshComponent->WakeRigidBody();
+}
+
+void AGLBModelActor::DisableCollision()
+{
+	if (!MeshComponent)
+		return;
+
+	MeshComponent->SetSimulatePhysics(false);
+	MeshComponent->SetEnableGravity(false);
+	MeshComponent->SetPhysicsLinearVelocity(FVector::ZeroVector);
+	MeshComponent->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
+}
+
 
 void AGLBModelActor::SetModelScale(float NewScale)
 {
@@ -209,8 +251,7 @@ void AGLBModelActor::SetModelScale(float NewScale)
 
 void AGLBModelActor::RotateModel(float Pitch, float Yaw, float Roll)
 {
-	FRotator NewRotation(Pitch, Yaw, Roll);
-	SetActorRotation(NewRotation);
+	AddActorLocalRotation(FRotator(Pitch, Yaw, Roll));
 }
 
 void AGLBModelActor::DeleteModel()
@@ -218,3 +259,13 @@ void AGLBModelActor::DeleteModel()
 	ClearProceduralMesh();
 	Destroy();
 }
+
+void AGLBModelActor::OnObjectBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	AAlexCharacter* Character = Cast<AAlexCharacter>(OtherActor);
+	if (Character)
+	{
+		Character->TakeItem(this);
+	}
+}
+

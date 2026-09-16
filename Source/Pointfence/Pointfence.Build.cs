@@ -4,22 +4,24 @@ using UnrealBuildTool;
 
 public class Pointfence : ModuleRules
 {
-	public Pointfence(ReadOnlyTargetRules Target) : base(Target)
-	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+    public Pointfence(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { 
-			"Core", 
-			"CoreUObject", 
-			"Engine", 
-			"InputCore", 
-			"HeadMountedDisplay" , 
-			"WebSockets", 
-			"LidarPointCloudRuntime", 
-			"ProceduralMeshComponent" ,
+        PublicDependencyModuleNames.AddRange(new string[] {
+            "Core",
+            "CoreUObject",
+            "Engine",
+            "InputCore",
+            "HeadMountedDisplay" ,
+            "WebSockets",
+            "LidarPointCloudRuntime",
+            "ProceduralMeshComponent" ,
             "Json",
-			"JsonUtilities",
-            "WebSockets"
+            "JsonUtilities",
+            "WebSockets",
+            "Niagara",
+            "UMG"
         });
-	}
+    }
 }

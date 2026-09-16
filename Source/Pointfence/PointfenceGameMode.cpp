@@ -18,8 +18,8 @@ APointfenceGameMode::APointfenceGameMode()
 
 void APointfenceGameMode::BeginPlay()
 {
-	UWorld* const World = GetWorld();
+	/*UWorld* const World = GetWorld();
 	FVector Location = FVector(-649.0f, -58.0f, 152.0f);
 	FRotator Rotation = FRotator::ZeroRotator;
-	World->SpawnActor<APointCloudWebSocketClient>(Location, Rotation);
+	World->SpawnActor<APointCloudWebSocketClient>(Location, Rotation);*/
 }

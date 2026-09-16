@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ProceduralMeshComponent.h"
-
+#include "Components/BoxComponent.h"
 #include "GLBModelActor.generated.h"
 
 UCLASS()
@@ -28,6 +28,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Model")
 	UProceduralMeshComponent* MeshComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collision")
+	UBoxComponent* CollisionBox;
+
 	UFUNCTION(BlueprintCallable, Category = "Model")
 	void SetModelScale(float NewScale);
 
@@ -48,4 +51,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Model")
 	void ClearProceduralMesh();
+
+	void EnableCollision();
+	void DisableCollision();
+
+	UFUNCTION()
+	void OnObjectBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

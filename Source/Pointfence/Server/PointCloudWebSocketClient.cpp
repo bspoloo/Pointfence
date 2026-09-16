@@ -5,15 +5,25 @@
 #include "Async/Async.h"
 #include "Engine/World.h"
 #include "Modules/ModuleManager.h"
+#include "Kismet/GameplayStatics.h"
 #include "../ItemsGLB/GLBModelActor.h"
 
 APointCloudWebSocketClient::APointCloudWebSocketClient()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	MeshComponent = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("MeshComponent"));
-	RootComponent = MeshComponent;
-	MeshComponent->bUseAsyncCooking = true;
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
+	
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/Teleporter/teleporter1_Cylinder_054.teleporter1_Cylinder_054"));
+
+	if (MeshAsset.Succeeded()) {
+		MeshComponent->SetStaticMesh(MeshAsset.Object);
+	}
+	static ConstructorHelpers::FObjectFinder<UNiagaraSystem> ParticleAsset(TEXT("/Game/PortalSystem/FX/NS_Portal_02.NS_Portal_02"));
+	if (ParticleAsset.Succeeded())
+	{
+		PressParticle = ParticleAsset.Object;
+	}
 }
 
 
@@ -76,6 +86,49 @@ void APointCloudWebSocketClient::DisconnectFromServer()
 	}
 
 	InComingBinaryBuffer.Empty();
+}
+
+void APointCloudWebSocketClient::StartReconstructionEffect()
+{
+	if (!PressParticle)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No hay un Niagara System asignado."));
+		return;
+	}
+
+	if (!GetWorld())
+		return;
+
+	if (ParticleComponent)
+	{
+		ParticleComponent->DestroyComponent();
+		ParticleComponent = nullptr;
+	}
+
+	FVector Location = GetActorLocation() + FVector(0.f, 0.f, 200.f);
+	FRotator Rotation = GetActorRotation();
+
+	ParticleComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+		GetWorld(),
+		PressParticle,
+		Location,
+		Rotation
+	);
+
+	if (ParticleComponent)
+	{
+		ParticleComponent->SetAutoDestroy(false);
+	}
+}
+
+void APointCloudWebSocketClient::StopReconstructionEffect()
+{
+	if (ParticleComponent)
+	{
+		ParticleComponent->Deactivate();
+		ParticleComponent->DestroyComponent();
+		ParticleComponent = nullptr;
+	}
 }
 
 
@@ -202,7 +255,6 @@ void APointCloudWebSocketClient::ProcessMeshBinaryData(
 	 * faces:
 	 *   num_faces * 3 * uint32
 	 */
-
 	const int64 HeaderSize = 8;
 
 	if (BinaryData.Num() < HeaderSize)
@@ -210,6 +262,8 @@ void APointCloudWebSocketClient::ProcessMeshBinaryData(
 		UE_LOG(LogTemp, Error, TEXT("Datos binarios insuficientes para leer el header."));
 		return;
 	}
+
+	this->StartReconstructionEffect();
 
 	int64 Offset = 0;
 
@@ -320,109 +374,13 @@ void APointCloudWebSocketClient::ProcessMeshBinaryData(
 	UWorld* World = GetWorld();
 	if (World) {
 
-		FVector Location = GetActorLocation() + FVector(0.0f, 0.0f, 100.0f);
+		FVector Location = GetActorLocation() + FVector(-150.0f, 0.0f, 100.0f);
 		FRotator Rotation = FRotator(0.0f, 0.0f, 0.0f);
 		
 		AGLBModelActor* item = World->SpawnActor<AGLBModelActor>(AGLBModelActor::StaticClass(), Location, Rotation);
 		item->CreateProceduralMesh(Vertices, Triangles, Normals);
-	}
-	//CreateMesh(Vertices, Triangles, Normals);
-}
 
-void APointCloudWebSocketClient::CreateMesh(const TArray<FVector>& Vertices, const TArray<int32>& Triangles, const TArray<FVector>& Normals)
-{
-	if (!MeshComponent)
-	{
-		UE_LOG(LogTemp, Error, TEXT("MeshComponent no existe."));
-		return;
-	}
-
-	if (Vertices.Num() == 0)
-	{
-		UE_LOG(LogTemp, Error, TEXT("No hay vertices para crear el mesh."));
-		return;
-	}
-
-	if (Triangles.Num() == 0)
-	{
-		UE_LOG(LogTemp, Error, TEXT("No hay índices para crear el mesh."));
-		return;
-	}
-
-	if (Normals.Num() != Vertices.Num())
-	{
-		UE_LOG(LogTemp, Error, TEXT("La cantidad de normales no coincide con los vertices."));
-		return;
-	}
-
-	const float MeshScale = 300.0f;
-
-	TArray<FVector> ScaledVertices;
-	ScaledVertices.SetNumUninitialized(Vertices.Num());
-
-	for (int32 i = 0; i < Vertices.Num(); ++i)
-	{
-		ScaledVertices[i] = Vertices[i] * MeshScale;
-	}
-
-	TArray<int32> CorrectedTriangles;
-	CorrectedTriangles.SetNumUninitialized(Triangles.Num());
-
-	for (int32 i = 0; i < Triangles.Num(); i += 3)
-	{
-		CorrectedTriangles[i] = Triangles[i];
-		CorrectedTriangles[i + 1] = Triangles[i + 2];
-		CorrectedTriangles[i + 2] = Triangles[i + 1];
-	}
-
-	TArray<FVector> CorrectedNormals;
-	CorrectedNormals.SetNumUninitialized(Normals.Num());
-
-	for (int32 i = 0; i < Normals.Num(); ++i)
-	{
-		CorrectedNormals[i] = -Normals[i];
-	}
-
-	TArray<FVector2D> UV0;
-	UV0.SetNumZeroed(ScaledVertices.Num());
-
-	TArray<FColor> VertexColors;
-	VertexColors.SetNumZeroed(ScaledVertices.Num());
-
-	TArray<FProcMeshTangent> Tangents;
-	Tangents.SetNumZeroed(ScaledVertices.Num());
-
-	MeshComponent->ClearAllMeshSections();
-
-	MeshComponent->CreateMeshSection(
-		0,
-		ScaledVertices,
-		CorrectedTriangles,
-		CorrectedNormals,
-		UV0,
-		VertexColors,
-		Tangents,
-		true
-	);
-
-
-	MeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	MeshComponent->SetCollisionProfileName(TEXT("BlockAll"));
-	MeshComponent->SetVisibility(true);
-
-	UE_LOG(LogTemp, Warning, TEXT("Mesh creado correctamente. Vertices: %d | Triángulos: %d | Escala: %.2f"),
-		ScaledVertices.Num(),
-		CorrectedTriangles.Num() / 3,
-		MeshScale
-	);
-}
-
-
-void APointCloudWebSocketClient::ClearMesh()
-{
-	if (MeshComponent)
-	{
-		MeshComponent->ClearAllMeshSections();
-		UE_LOG(LogTemp, Log, TEXT("Mesh limpiado."));
+		GetWorld()->GetTimerManager().ClearTimer(ReconstructionTimerHandle);
+		GetWorld()->GetTimerManager().SetTimer(ReconstructionTimerHandle,this,&APointCloudWebSocketClient::StopReconstructionEffect,5.0f,false);
 	}
 }

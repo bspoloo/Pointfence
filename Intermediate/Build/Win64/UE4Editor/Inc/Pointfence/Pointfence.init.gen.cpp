@@ -21,8 +21,8 @@ void EmptyLinkFunctionForGeneratedCodePointfence_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x2FC0FBFB,
-				0x6699D14A,
+				0xBA3ACBAE,
+				0xC7A47A33,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UE4CodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

@@ -8,6 +8,9 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UPrimitiveComponent;
+class AActor;
+struct FHitResult;
 struct FVector;
 #ifdef POINTFENCE_GLBModelActor_generated_h
 #error "GLBModelActor.generated.h already included, missing '#pragma once' in GLBModelActor.h"
@@ -17,6 +20,7 @@ struct FVector;
 #define Pointfence_Source_Pointfence_ItemsGLB_GLBModelActor_h_14_SPARSE_DATA
 #define Pointfence_Source_Pointfence_ItemsGLB_GLBModelActor_h_14_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execOnObjectBeginOverlap); \
 	DECLARE_FUNCTION(execClearProceduralMesh); \
 	DECLARE_FUNCTION(execCreateProceduralMesh); \
 	DECLARE_FUNCTION(execDeleteModel); \
@@ -26,6 +30,7 @@ struct FVector;
 
 #define Pointfence_Source_Pointfence_ItemsGLB_GLBModelActor_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execOnObjectBeginOverlap); \
 	DECLARE_FUNCTION(execClearProceduralMesh); \
 	DECLARE_FUNCTION(execCreateProceduralMesh); \
 	DECLARE_FUNCTION(execDeleteModel); \
