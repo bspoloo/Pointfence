@@ -8,15 +8,28 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UPrimitiveComponent;
+class AActor;
+struct FHitResult;
 #ifdef POINTFENCE_AlexCharacter_generated_h
 #error "AlexCharacter.generated.h already included, missing '#pragma once' in AlexCharacter.h"
 #endif
 #define POINTFENCE_AlexCharacter_generated_h
 
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_SPARSE_DATA
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_RPC_WRAPPERS
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_RPC_WRAPPERS_NO_PURE_DECLS
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_INCLASS_NO_PURE_DECLS \
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_SPARSE_DATA
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execTakeDamage); \
+	DECLARE_FUNCTION(execOnObjectBeginOverlap);
+
+
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execTakeDamage); \
+	DECLARE_FUNCTION(execOnObjectBeginOverlap);
+
+
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAAlexCharacter(); \
 	friend struct Z_Construct_UClass_AAlexCharacter_Statics; \
@@ -25,7 +38,7 @@ public: \
 	DECLARE_SERIALIZER(AAlexCharacter)
 
 
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_INCLASS \
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_INCLASS \
 private: \
 	static void StaticRegisterNativesAAlexCharacter(); \
 	friend struct Z_Construct_UClass_AAlexCharacter_Statics; \
@@ -34,7 +47,7 @@ public: \
 	DECLARE_SERIALIZER(AAlexCharacter)
 
 
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_STANDARD_CONSTRUCTORS \
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AAlexCharacter(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AAlexCharacter) \
@@ -47,7 +60,7 @@ private: \
 public:
 
 
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_ENHANCED_CONSTRUCTORS \
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AAlexCharacter(AAlexCharacter&&); \
@@ -58,28 +71,28 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AAlexCharacter)
 
 
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_PRIVATE_PROPERTY_OFFSET
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_16_PROLOG
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_GENERATED_BODY_LEGACY \
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_PRIVATE_PROPERTY_OFFSET
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_17_PROLOG
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_SPARSE_DATA \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_RPC_WRAPPERS \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_INCLASS \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_STANDARD_CONSTRUCTORS \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_PRIVATE_PROPERTY_OFFSET \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_SPARSE_DATA \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_RPC_WRAPPERS \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_INCLASS \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_GENERATED_BODY \
+#define Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_SPARSE_DATA \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_INCLASS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_19_ENHANCED_CONSTRUCTORS \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_PRIVATE_PROPERTY_OFFSET \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_SPARSE_DATA \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_INCLASS_NO_PURE_DECLS \
+	Pointfence_Source_Pointfence_Characters_Alex_AlexCharacter_h_20_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

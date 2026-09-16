@@ -6,55 +6,63 @@
 #include "GameFramework/Actor.h"
 #include "WebSocketsModule.h"
 #include "IWebSocket.h"
-#include "LidarPointCloud.h"
-#include "LidarPointCloudComponent.h"
 #include "ProceduralMeshComponent.h"
+#include "Serialization/JsonReader.h"
+#include "Serialization/JsonSerializer.h"
+#include "Dom/JsonObject.h"
+#include "NiagaraSystem.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "PointCloudWebSocketClient.generated.h"
 
 UCLASS()
 class POINTFENCE_API APointCloudWebSocketClient : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
+
+public:
+
 	APointCloudWebSocketClient();
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-	TSharedPtr<IWebSocket> WebSocket;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
+	UStaticMeshComponent* MeshComponent;
 
 	UPROPERTY()
-	ULidarPointCloud* CurrentPointCloud;
+	UNiagaraSystem* PressParticle = nullptr;
 
-	UPROPERTY(VisibleAnywhere)
-	ULidarPointCloudComponent* PointCloudComponent;
+	UPROPERTY()
+	UNiagaraComponent* ParticleComponent = nullptr;
 
-	void OnWebSocketBinaryData(const void* Data,SIZE_T Size,SIZE_T BytesRemaining);
-	void OnWebSocketMessage(const FString& Message);
-	void CreatePoinCloudFromBinary(const TArray<uint8>& BinaryData);
+	FTimerHandle ReconstructionTimerHandle;
+
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "Websocket")
+	void ConnectToServer(
+		const FString& ServerUrl = TEXT("ws://192.168.0.111:8000/api/v1/scanning/ws/unreal")
+	);
+
+	UFUNCTION(BlueprintCallable, Category = "Websocket")
+	void DisconnectFromServer();
+
+	void StartReconstructionEffect();
+	void StopReconstructionEffect();
+
+private:
+
+	TSharedPtr<IWebSocket> WebSocket;
+	TArray<uint8> InComingBinaryBuffer;
 
 	void OnWebSocketConnected();
 	void OnWebSocketConectionError(const FString& Error);
-	void OnWebSocketClosed(int32 StatusCode, const FString& Reason, bool bWasClean);
+	void OnWebSocketClosed(int32 StatusCode,const FString& Reason,bool bWasClean);
+	void OnWebSocketMessage(const FString& Message);
+	void OnWebSocketBinaryData(const void* Data,SIZE_T Size,SIZE_T BytesRemaining);
+	void ProcessMeshBinaryData(const TArray<uint8>& BinaryData);
 
-	TArray<uint8> InComingBinaryBuffer;
-
-	void CreatePointCloudFromBinaryData(const TArray<uint8>& BinaryData);
-
-	UPROPERTY(VisibleAnywhere)
-	UProceduralMeshComponent* MeshComponent;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	UFUNCTION(BlueprintCallable, Category = "PointCloud")
-	void ConnectToServer(const FString& ServerUrl = TEXT("ws://192.168.100.73:8000/api/v1/points/ws/unreal"));
-
-	UFUNCTION(BlueprintCallable, Category = "PointCloud")
-	void DisconnectFromServer();
 };

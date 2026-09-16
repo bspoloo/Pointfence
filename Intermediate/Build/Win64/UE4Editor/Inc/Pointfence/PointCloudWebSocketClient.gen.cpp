@@ -17,9 +17,9 @@ void EmptyLinkFunctionForGeneratedCodePointCloudWebSocketClient() {}
 	POINTFENCE_API UClass* Z_Construct_UClass_APointCloudWebSocketClient();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_Pointfence();
-	LIDARPOINTCLOUDRUNTIME_API UClass* Z_Construct_UClass_ULidarPointCloud_NoRegister();
-	LIDARPOINTCLOUDRUNTIME_API UClass* Z_Construct_UClass_ULidarPointCloudComponent_NoRegister();
-	PROCEDURALMESHCOMPONENT_API UClass* Z_Construct_UClass_UProceduralMeshComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
+	NIAGARA_API UClass* Z_Construct_UClass_UNiagaraSystem_NoRegister();
+	NIAGARA_API UClass* Z_Construct_UClass_UNiagaraComponent_NoRegister();
 // End Cross Module References
 	DEFINE_FUNCTION(APointCloudWebSocketClient::execDisconnectFromServer)
 	{
@@ -72,8 +72,8 @@ void EmptyLinkFunctionForGeneratedCodePointCloudWebSocketClient() {}
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_APointCloudWebSocketClient_ConnectToServer_Statics::Function_MetaDataParams[] = {
-		{ "Category", "PointCloud" },
-		{ "CPP_Default_ServerUrl", "ws://192.168.100.73:8000/api/v1/points/ws/unreal" },
+		{ "Category", "Websocket" },
+		{ "CPP_Default_ServerUrl", "ws://192.168.0.111:8000/api/v1/scanning/ws/unreal" },
 		{ "ModuleRelativePath", "Server/PointCloudWebSocketClient.h" },
 	};
 #endif
@@ -96,7 +96,7 @@ void EmptyLinkFunctionForGeneratedCodePointCloudWebSocketClient() {}
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_APointCloudWebSocketClient_DisconnectFromServer_Statics::Function_MetaDataParams[] = {
-		{ "Category", "PointCloud" },
+		{ "Category", "Websocket" },
 		{ "ModuleRelativePath", "Server/PointCloudWebSocketClient.h" },
 	};
 #endif
@@ -122,17 +122,17 @@ void EmptyLinkFunctionForGeneratedCodePointCloudWebSocketClient() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_CurrentPointCloud_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_CurrentPointCloud;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_PointCloudComponent_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_PointCloudComponent;
-#if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_MeshComponent_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_MeshComponent;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_PressParticle_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_PressParticle;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ParticleComponent_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_ParticleComponent;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -142,8 +142,8 @@ void EmptyLinkFunctionForGeneratedCodePointCloudWebSocketClient() {}
 		(UObject* (*)())Z_Construct_UPackage__Script_Pointfence,
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_APointCloudWebSocketClient_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_APointCloudWebSocketClient_ConnectToServer, "ConnectToServer" }, // 432387216
-		{ &Z_Construct_UFunction_APointCloudWebSocketClient_DisconnectFromServer, "DisconnectFromServer" }, // 3124545669
+		{ &Z_Construct_UFunction_APointCloudWebSocketClient_ConnectToServer, "ConnectToServer" }, // 2490160496
+		{ &Z_Construct_UFunction_APointCloudWebSocketClient_DisconnectFromServer, "DisconnectFromServer" }, // 1768775706
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APointCloudWebSocketClient_Statics::Class_MetaDataParams[] = {
@@ -152,31 +152,30 @@ void EmptyLinkFunctionForGeneratedCodePointCloudWebSocketClient() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_CurrentPointCloud_MetaData[] = {
-		{ "ModuleRelativePath", "Server/PointCloudWebSocketClient.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_CurrentPointCloud = { "CurrentPointCloud", nullptr, (EPropertyFlags)0x0020080000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APointCloudWebSocketClient, CurrentPointCloud), Z_Construct_UClass_ULidarPointCloud_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_CurrentPointCloud_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_CurrentPointCloud_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PointCloudComponent_MetaData[] = {
-		{ "Category", "PointCloudWebSocketClient" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Server/PointCloudWebSocketClient.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PointCloudComponent = { "PointCloudComponent", nullptr, (EPropertyFlags)0x00200800000a0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APointCloudWebSocketClient, PointCloudComponent), Z_Construct_UClass_ULidarPointCloudComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PointCloudComponent_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PointCloudComponent_MetaData)) };
-#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent_MetaData[] = {
-		{ "Category", "PointCloudWebSocketClient" },
+		{ "Category", "Mesh" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Server/PointCloudWebSocketClient.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent = { "MeshComponent", nullptr, (EPropertyFlags)0x00200800000a0009, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APointCloudWebSocketClient, MeshComponent), Z_Construct_UClass_UProceduralMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent = { "MeshComponent", nullptr, (EPropertyFlags)0x00200800000a001d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APointCloudWebSocketClient, MeshComponent), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PressParticle_MetaData[] = {
+		{ "ModuleRelativePath", "Server/PointCloudWebSocketClient.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PressParticle = { "PressParticle", nullptr, (EPropertyFlags)0x0020080000000000, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APointCloudWebSocketClient, PressParticle), Z_Construct_UClass_UNiagaraSystem_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PressParticle_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PressParticle_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_ParticleComponent_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Server/PointCloudWebSocketClient.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_ParticleComponent = { "ParticleComponent", nullptr, (EPropertyFlags)0x0020080000080008, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APointCloudWebSocketClient, ParticleComponent), Z_Construct_UClass_UNiagaraComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_ParticleComponent_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_ParticleComponent_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_APointCloudWebSocketClient_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_CurrentPointCloud,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PointCloudComponent,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_MeshComponent,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_PressParticle,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APointCloudWebSocketClient_Statics::NewProp_ParticleComponent,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_APointCloudWebSocketClient_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<APointCloudWebSocketClient>::IsAbstract,
@@ -205,7 +204,7 @@ void EmptyLinkFunctionForGeneratedCodePointCloudWebSocketClient() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(APointCloudWebSocketClient, 2277841686);
+	IMPLEMENT_CLASS(APointCloudWebSocketClient, 1034314595);
 	template<> POINTFENCE_API UClass* StaticClass<APointCloudWebSocketClient>()
 	{
 		return APointCloudWebSocketClient::StaticClass();
