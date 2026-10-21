@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Kismet/GameplayStatics.h"
 #include "PointfenceGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -14,6 +15,9 @@ class APointfenceGameMode : public AGameModeBase
 public:
 	APointfenceGameMode();
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, Category = "Audio")
+	USoundBase* BackgroundMusic;
 };
 
 

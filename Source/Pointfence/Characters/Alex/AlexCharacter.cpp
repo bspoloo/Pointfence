@@ -3,6 +3,7 @@
 
 #include "./AlexCharacter.h"
 #include "../../ItemsGLB/PushButton.h"
+#include "Kismet/GameplayStatics.h"
 #include "EngineUtils.h"
 
 // Sets default values
@@ -162,8 +163,30 @@ void AAlexCharacter::OnObjectBeginOverlap(UPrimitiveComponent* OverlappedCompone
 	}
 }
 
+void AAlexCharacter::AddPoint()
+{
+	CurrentButtons++;
+
+	if (CurrentButtons != TotalButtons) return;
+
+	FString LevelName = UGameplayStatics::GetCurrentLevelName(this, true);
+
+	if (LevelName == "Tutorial") UGameplayStatics::OpenLevel(this, FName("Level1"));
+	else if (LevelName == "Level1") UGameplayStatics::OpenLevel(this, FName("Level2"));
+	else if (LevelName == "Level2") UGameplayStatics::OpenLevel(this, FName("Level3"));
+	else UGameplayStatics::OpenLevel(this, FName("Tutorial"));
+}
+
+void AAlexCharacter::RemovePoint()
+{
+	CurrentButtons--;
+}
+
 void AAlexCharacter::TakeDamage(float Damage)
 {
-	Health -= Damage;
-	Health = FMath::Clamp(Health, 0.0f, MaxHealth);
+	if (Health <= 0.0f) return;
+
+	Health = FMath::Clamp(Health - Damage, 0.0f, MaxHealth);
+
+	if (Health <= 0.0f) UGameplayStatics::OpenLevel(this, FName("Menu"));
 }

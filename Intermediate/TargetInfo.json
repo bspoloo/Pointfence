@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "Pointfence",
-			"Path": "D:\\Proyectos\\Pointfence\\Source\\Pointfence.Target.cs",
+			"Path": "D:\\Sciences\\pointfence\\Pointfence\\Source\\Pointfence.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "PointfenceEditor",
-			"Path": "D:\\Proyectos\\Pointfence\\Source\\PointfenceEditor.Target.cs",
+			"Path": "D:\\Sciences\\pointfence\\Pointfence\\Source\\PointfenceEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]

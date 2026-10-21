@@ -4,6 +4,10 @@ D:\Programs\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\Components/B
 D:\Programs\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\Components/ShapeComponent.h
 D:\Programs\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ShapeComponent.generated.h
 D:\Programs\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\BoxComponent.generated.h
+D:\Sciences\pointfence\Pointfence\Source\Pointfence\ItemsGLB\./GLBModelActor.h
+D:\Programs\Epic Games\UE_4.27\Engine\Plugins\Runtime\ProceduralMeshComponent\Source\ProceduralMeshComponent\Public\ProceduralMeshComponent.h
+D:\Programs\Epic Games\UE_4.27\Engine\Plugins\Runtime\ProceduralMeshComponent\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralMeshComponent\ProceduralMeshComponent.generated.h
+D:\Sciences\pointfence\Pointfence\Intermediate\Build\Win64\UE4Editor\Inc\Pointfence\GLBModelActor.generated.h
 D:\Sciences\pointfence\Pointfence\Intermediate\Build\Win64\UE4Editor\Inc\Pointfence\PushButton.generated.h
 D:\Programs\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\Kismet/GameplayStatics.h
 D:\Programs\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\Kismet/KismetSystemLibrary.h
@@ -14,10 +18,6 @@ D:\Programs\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Eng
 D:\Programs\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\Kismet\GameplayStaticsTypes.h
 D:\Programs\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameplayStaticsTypes.generated.h
 D:\Programs\Epic Games\UE_4.27\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\GameplayStatics.generated.h
-D:\Sciences\pointfence\Pointfence\Source\Pointfence\ItemsGLB\./GLBModelActor.h
-D:\Programs\Epic Games\UE_4.27\Engine\Plugins\Runtime\ProceduralMeshComponent\Source\ProceduralMeshComponent\Public\ProceduralMeshComponent.h
-D:\Programs\Epic Games\UE_4.27\Engine\Plugins\Runtime\ProceduralMeshComponent\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralMeshComponent\ProceduralMeshComponent.generated.h
-D:\Sciences\pointfence\Pointfence\Intermediate\Build\Win64\UE4Editor\Inc\Pointfence\GLBModelActor.generated.h
 D:\Sciences\pointfence\Pointfence\Source\Pointfence\ItemsGLB\../Characters/Alex/AlexCharacter.h
 D:\Programs\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\GameFramework/Character.h
 D:\Programs\Epic Games\UE_4.27\Engine\Source\Runtime\Engine\Classes\GameFramework/CharacterMovementReplication.h
