@@ -70,6 +70,9 @@ public:
 	UPROPERTY()
 	UUserWidget* HUDWidget;
 
+	void AddPoint();
+	void RemovePoint();
+
 	UFUNCTION(BlueprintCallable, Category = "Stats")
 	void TakeDamage(float Damage);
 };

@@ -3,7 +3,6 @@
 
 #include "./PushButton.h"
 #include "Kismet/GameplayStatics.h"
-#include "./GLBModelActor.h"
 #include "../Characters/Alex/AlexCharacter.h"
 
 // Sets default values
@@ -17,6 +16,7 @@ APushButton::APushButton()
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/Button/button.button"));
 	static ConstructorHelpers::FObjectFinder<USoundBase> ButtonSound(TEXT("/Game/Sounds/push_button.push_button"));
+	static ConstructorHelpers::FObjectFinder<USoundBase> OffOutSound(TEXT("/Game/Sounds/pick_up.pick_up"));
 
 	if (MeshAsset.Succeeded()) {
 		ButtonMesh->SetStaticMesh(MeshAsset.Object);
@@ -24,6 +24,10 @@ APushButton::APushButton()
 
 	if (ButtonSound.Succeeded()) {
 		PressSound = ButtonSound.Object;
+	}
+
+	if (OffOutSound.Succeeded()) {
+		OffSound = OffOutSound.Object;
 	}
 
 	ButtonMesh->SetWorldScale3D(FVector(100.0f, 100.0f, 100.0f));
@@ -52,30 +56,39 @@ void APushButton::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	DetectionBox->UpdateOverlaps();
+
 }
 
 void APushButton::OnObjectBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Metiendo Objeto"));
 	if (AGLBModelActor* Item = Cast<AGLBModelActor>(OtherActor))
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, PressSound, GetActorLocation());
 		APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 		AAlexCharacter* Alex = Cast<AAlexCharacter>(PlayerPawn);
 
-		Alex->CurrentButtons++;
+		if (this->ObjectItem == nullptr) {
+
+			Alex->AddPoint();
+			ObjectItem = Item;
+		}
 	}
 }
 
 void APushButton::OnObjectEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	AGLBModelActor* Item = Cast<AGLBModelActor>(OtherActor);
-
-	if (Item)
+	UE_LOG(LogTemp, Warning, TEXT("Sacando Objeto"));
+	if (AGLBModelActor* Item = Cast<AGLBModelActor>(OtherActor))
 	{
-
+		UGameplayStatics::PlaySoundAtLocation(this, OffSound, GetActorLocation());
 		APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 		AAlexCharacter* Alex = Cast<AAlexCharacter>(PlayerPawn);
 
-		Alex->CurrentButtons--;
+		if (this->ObjectItem != nullptr) {
+			Alex->RemovePoint();
+			ObjectItem = nullptr;
+		}
 	}
 }

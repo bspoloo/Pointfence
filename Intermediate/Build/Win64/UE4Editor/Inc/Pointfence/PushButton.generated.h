@@ -16,18 +16,20 @@ struct FHitResult;
 #endif
 #define POINTFENCE_PushButton_generated_h
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_SPARSE_DATA
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_RPC_WRAPPERS \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_SPARSE_DATA
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execOnObjectEndOverlap); \
 	DECLARE_FUNCTION(execOnObjectBeginOverlap);
 
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execOnObjectEndOverlap); \
 	DECLARE_FUNCTION(execOnObjectBeginOverlap);
 
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_INCLASS_NO_PURE_DECLS \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAPushButton(); \
 	friend struct Z_Construct_UClass_APushButton_Statics; \
@@ -36,7 +38,7 @@ public: \
 	DECLARE_SERIALIZER(APushButton)
 
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_INCLASS \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_INCLASS \
 private: \
 	static void StaticRegisterNativesAPushButton(); \
 	friend struct Z_Construct_UClass_APushButton_Statics; \
@@ -45,7 +47,7 @@ public: \
 	DECLARE_SERIALIZER(APushButton)
 
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_STANDARD_CONSTRUCTORS \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API APushButton(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(APushButton) \
@@ -58,7 +60,7 @@ private: \
 public:
 
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_ENHANCED_CONSTRUCTORS \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API APushButton(APushButton&&); \
@@ -69,28 +71,28 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(APushButton)
 
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_PRIVATE_PROPERTY_OFFSET
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_12_PROLOG
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_GENERATED_BODY_LEGACY \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_PRIVATE_PROPERTY_OFFSET
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_13_PROLOG
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_SPARSE_DATA \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_RPC_WRAPPERS \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_INCLASS \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_STANDARD_CONSTRUCTORS \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_PRIVATE_PROPERTY_OFFSET \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_SPARSE_DATA \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_RPC_WRAPPERS \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_INCLASS \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_GENERATED_BODY \
+#define Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_PRIVATE_PROPERTY_OFFSET \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_SPARSE_DATA \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_INCLASS_NO_PURE_DECLS \
-	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_15_ENHANCED_CONSTRUCTORS \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_PRIVATE_PROPERTY_OFFSET \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_SPARSE_DATA \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_INCLASS_NO_PURE_DECLS \
+	Pointfence_Source_Pointfence_ItemsGLB_PushButton_h_16_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

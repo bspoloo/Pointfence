@@ -7,6 +7,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "Sound/SoundBase.h"
+#include "./GLBModelActor.h"
 #include "PushButton.generated.h"
 
 UCLASS()
@@ -26,17 +27,26 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	AGLBModelActor* ObjectItem;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Button")
     UStaticMeshComponent* ButtonMesh;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Button")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Box")
     UBoxComponent* DetectionBox;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Button")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
 	USoundBase* PressSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* OffSound;
+
+	
 
     UFUNCTION()
     void OnObjectBeginOverlap(UPrimitiveComponent* OverlappedComponent,AActor* OtherActor, UPrimitiveComponent* OtherComp,int32 OtherBodyIndex,bool bFromSweep, const FHitResult& SweepResult );
+	
+	UFUNCTION()
 	void OnObjectEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

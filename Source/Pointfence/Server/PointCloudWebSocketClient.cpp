@@ -6,6 +6,8 @@
 #include "Engine/World.h"
 #include "Modules/ModuleManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "Blueprint/UserWidget.h"
+#include "../Widgets/UConnectionStatusWidget.h"
 #include "../ItemsGLB/GLBModelActor.h"
 
 APointCloudWebSocketClient::APointCloudWebSocketClient()
@@ -30,6 +32,7 @@ APointCloudWebSocketClient::APointCloudWebSocketClient()
 void APointCloudWebSocketClient::BeginPlay()
 {
 	Super::BeginPlay();
+	InitializeConnectionStatusWidget();
 	ConnectToServer();
 }
 
@@ -46,6 +49,7 @@ void APointCloudWebSocketClient::ConnectToServer(const FString& ServerUrl)
 	if (WebSocket.IsValid() && WebSocket->IsConnected())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("WebSocket ya está conectado."));
+		ShowConnectionWarning();
 		return;
 	}
 
@@ -59,6 +63,7 @@ void APointCloudWebSocketClient::ConnectToServer(const FString& ServerUrl)
 	if (!WebSocket.IsValid())
 	{
 		UE_LOG(LogTemp, Error, TEXT("No se pudo crear el WebSocket."));
+		ShowConnectionError();
 		return;
 	}
 
@@ -70,6 +75,7 @@ void APointCloudWebSocketClient::ConnectToServer(const FString& ServerUrl)
 
 	UE_LOG(LogTemp, Warning, TEXT("Conectando a WebSocket: %s"), *ServerUrl);
 	WebSocket->Connect();
+	this->ShowConnecting();
 }
 
 
@@ -131,11 +137,68 @@ void APointCloudWebSocketClient::StopReconstructionEffect()
 	}
 }
 
+void APointCloudWebSocketClient::InitializeConnectionStatusWidget()
+{
+	if (!ConnectionStatusWidgetClass || !GetWorld())
+	{
+		UE_LOG(LogTemp,Warning,TEXT("No se ha asignado ConnectionStatusWidgetClass.")
+		);
+		return;
+	}
+
+	APlayerController* PC =GetWorld()->GetFirstPlayerController();
+
+	if (!PC)
+	{	
+		UE_LOG(LogTemp, Warning, TEXT("No hay PlayerController."));
+		return;
+	}
+
+	ConnectionStatusWidget =CreateWidget<UUConnectionStatusWidget>(PC,ConnectionStatusWidgetClass);
+
+	if (ConnectionStatusWidget)
+	{
+		ConnectionStatusWidget->AddToViewport();
+	}
+}
+
+void APointCloudWebSocketClient::ShowConnectionConnected()
+{
+	if (ConnectionStatusWidget)
+	{
+		ConnectionStatusWidget->ShowConnected();
+	}
+}
+
+void APointCloudWebSocketClient::ShowConnectionError()
+{
+	if (ConnectionStatusWidget)
+	{
+		ConnectionStatusWidget->ShowError();
+	}
+}
+
+void APointCloudWebSocketClient::ShowConnectionWarning()
+{
+	if (ConnectionStatusWidget)
+	{
+		ConnectionStatusWidget->ShowWarning();
+	}
+}
+
+void APointCloudWebSocketClient::ShowConnecting()
+{
+	if (ConnectionStatusWidget)
+	{
+		ConnectionStatusWidget->ShowConnecting();
+	}
+}
+
 
 void APointCloudWebSocketClient::OnWebSocketConnected()
 {
 	UE_LOG(LogTemp, Warning, TEXT("WebSocket conectado al servidor."));
-
+	ShowConnectionConnected();
 	if (WebSocket.IsValid() && WebSocket->IsConnected())
 	{
 		WebSocket->Send(TEXT("READY"));
@@ -143,10 +206,9 @@ void APointCloudWebSocketClient::OnWebSocketConnected()
 }
 
 
-void APointCloudWebSocketClient::OnWebSocketConectionError(
-	const FString& Error
-)
+void APointCloudWebSocketClient::OnWebSocketConectionError(const FString& Error)
 {
+	ShowConnectionError();
 	UE_LOG(LogTemp, Error, TEXT("WebSocket Error: %s"), *Error);
 }
 
@@ -154,6 +216,7 @@ void APointCloudWebSocketClient::OnWebSocketConectionError(
 void APointCloudWebSocketClient::OnWebSocketClosed(int32 StatusCode, const FString& Reason, bool bWasClean)
 {
 	UE_LOG(LogTemp, Warning, TEXT("WebSocket cerrado. Código: %d | Razón: %s | Clean: %s"), StatusCode, *Reason, bWasClean ? TEXT("true") : TEXT("false"));
+	ShowConnectionWarning();
 }
 
 

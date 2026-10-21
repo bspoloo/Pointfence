@@ -24,6 +24,17 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 	ENGINE_API UClass* Z_Construct_UClass_UBoxComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USoundBase_NoRegister();
 // End Cross Module References
+	DEFINE_FUNCTION(APushButton::execOnObjectEndOverlap)
+	{
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+		P_GET_OBJECT(AActor,Z_Param_OtherActor);
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComp);
+		P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->OnObjectEndOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(APushButton::execOnObjectBeginOverlap)
 	{
 		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
@@ -42,6 +53,7 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 		UClass* Class = APushButton::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
 			{ "OnObjectBeginOverlap", &APushButton::execOnObjectBeginOverlap },
+			{ "OnObjectEndOverlap", &APushButton::execOnObjectEndOverlap },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -126,6 +138,66 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics
+	{
+		struct PushButton_eventOnObjectEndOverlap_Parms
+		{
+			UPrimitiveComponent* OverlappedComponent;
+			AActor* OtherActor;
+			UPrimitiveComponent* OtherComp;
+			int32 OtherBodyIndex;
+		};
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_OtherComp_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_OtherComp;
+		static const UE4CodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(PushButton_eventOnObjectEndOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OverlappedComponent_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OverlappedComponent_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(PushButton_eventOnObjectEndOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(nullptr, 0) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherComp_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherComp = { "OtherComp", nullptr, (EPropertyFlags)0x0010000000080080, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(PushButton_eventOnObjectEndOverlap_Parms, OtherComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherComp_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherComp_MetaData)) };
+	const UE4CodeGen_Private::FIntPropertyParams Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(PushButton_eventOnObjectEndOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OverlappedComponent,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherActor,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherComp,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::NewProp_OtherBodyIndex,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "ItemsGLB/PushButton.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_APushButton, nullptr, "OnObjectEndOverlap", nullptr, nullptr, sizeof(PushButton_eventOnObjectEndOverlap_Parms), Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_APushButton_OnObjectEndOverlap()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_APushButton_OnObjectEndOverlap_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	UClass* Z_Construct_UClass_APushButton_NoRegister()
 	{
 		return APushButton::StaticClass();
@@ -149,6 +221,10 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_PressSound_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_PressSound;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_OffSound_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_OffSound;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -159,6 +235,7 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 	};
 	const FClassFunctionLinkInfo Z_Construct_UClass_APushButton_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_APushButton_OnObjectBeginOverlap, "OnObjectBeginOverlap" }, // 4276189156
+		{ &Z_Construct_UFunction_APushButton_OnObjectEndOverlap, "OnObjectEndOverlap" }, // 3332145002
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APushButton_Statics::Class_MetaDataParams[] = {
@@ -176,7 +253,7 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APushButton_Statics::NewProp_ButtonMesh = { "ButtonMesh", nullptr, (EPropertyFlags)0x001000000008001d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APushButton, ButtonMesh), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APushButton_Statics::NewProp_ButtonMesh_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APushButton_Statics::NewProp_ButtonMesh_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APushButton_Statics::NewProp_DetectionBox_MetaData[] = {
-		{ "Category", "Button" },
+		{ "Category", "Box" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "ItemsGLB/PushButton.h" },
 	};
@@ -184,15 +261,23 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APushButton_Statics::NewProp_DetectionBox = { "DetectionBox", nullptr, (EPropertyFlags)0x001000000008001d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APushButton, DetectionBox), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APushButton_Statics::NewProp_DetectionBox_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APushButton_Statics::NewProp_DetectionBox_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APushButton_Statics::NewProp_PressSound_MetaData[] = {
-		{ "Category", "Button" },
+		{ "Category", "Sound" },
 		{ "ModuleRelativePath", "ItemsGLB/PushButton.h" },
 	};
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APushButton_Statics::NewProp_PressSound = { "PressSound", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APushButton, PressSound), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APushButton_Statics::NewProp_PressSound_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APushButton_Statics::NewProp_PressSound_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APushButton_Statics::NewProp_OffSound_MetaData[] = {
+		{ "Category", "Sound" },
+		{ "ModuleRelativePath", "ItemsGLB/PushButton.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APushButton_Statics::NewProp_OffSound = { "OffSound", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APushButton, OffSound), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APushButton_Statics::NewProp_OffSound_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APushButton_Statics::NewProp_OffSound_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_APushButton_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APushButton_Statics::NewProp_ButtonMesh,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APushButton_Statics::NewProp_DetectionBox,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APushButton_Statics::NewProp_PressSound,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APushButton_Statics::NewProp_OffSound,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_APushButton_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<APushButton>::IsAbstract,
@@ -221,7 +306,7 @@ void EmptyLinkFunctionForGeneratedCodePushButton() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(APushButton, 1237284630);
+	IMPLEMENT_CLASS(APushButton, 1854819633);
 	template<> POINTFENCE_API UClass* StaticClass<APushButton>()
 	{
 		return APushButton::StaticClass();

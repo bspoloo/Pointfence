@@ -17,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodePointfenceGameMode() {}
 	POINTFENCE_API UClass* Z_Construct_UClass_APointfenceGameMode();
 	ENGINE_API UClass* Z_Construct_UClass_AGameModeBase();
 	UPackage* Z_Construct_UPackage__Script_Pointfence();
+	ENGINE_API UClass* Z_Construct_UClass_USoundBase_NoRegister();
 // End Cross Module References
 	void APointfenceGameMode::StaticRegisterNativesAPointfenceGameMode()
 	{
@@ -31,6 +32,11 @@ void EmptyLinkFunctionForGeneratedCodePointfenceGameMode() {}
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BackgroundMusic_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BackgroundMusic;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
 	};
@@ -46,6 +52,16 @@ void EmptyLinkFunctionForGeneratedCodePointfenceGameMode() {}
 		{ "ShowCategories", "Input|MouseInput Input|TouchInput" },
 	};
 #endif
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_APointfenceGameMode_Statics::NewProp_BackgroundMusic_MetaData[] = {
+		{ "Category", "Audio" },
+		{ "ModuleRelativePath", "PointfenceGameMode.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_APointfenceGameMode_Statics::NewProp_BackgroundMusic = { "BackgroundMusic", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(APointfenceGameMode, BackgroundMusic), Z_Construct_UClass_USoundBase_NoRegister, METADATA_PARAMS(Z_Construct_UClass_APointfenceGameMode_Statics::NewProp_BackgroundMusic_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_APointfenceGameMode_Statics::NewProp_BackgroundMusic_MetaData)) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_APointfenceGameMode_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_APointfenceGameMode_Statics::NewProp_BackgroundMusic,
+	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_APointfenceGameMode_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<APointfenceGameMode>::IsAbstract,
 	};
@@ -55,11 +71,11 @@ void EmptyLinkFunctionForGeneratedCodePointfenceGameMode() {}
 		&StaticCppClassTypeInfo,
 		DependentSingletons,
 		nullptr,
-		nullptr,
+		Z_Construct_UClass_APointfenceGameMode_Statics::PropPointers,
 		nullptr,
 		UE_ARRAY_COUNT(DependentSingletons),
 		0,
-		0,
+		UE_ARRAY_COUNT(Z_Construct_UClass_APointfenceGameMode_Statics::PropPointers),
 		0,
 		0x008802ACu,
 		METADATA_PARAMS(Z_Construct_UClass_APointfenceGameMode_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_APointfenceGameMode_Statics::Class_MetaDataParams))
@@ -73,7 +89,7 @@ void EmptyLinkFunctionForGeneratedCodePointfenceGameMode() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(APointfenceGameMode, 222794954);
+	IMPLEMENT_CLASS(APointfenceGameMode, 1163187991);
 	template<> POINTFENCE_API UClass* StaticClass<APointfenceGameMode>()
 	{
 		return APointfenceGameMode::StaticClass();
